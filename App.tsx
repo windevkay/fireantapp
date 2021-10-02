@@ -1,21 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { StyleSheet, SafeAreaView } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
+import * as Font from "expo-font";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import { theme } from "./theme.config";
+
+import { HomeScreen } from "./screens/Home";
+
+export default class App extends React.Component {
+  state = {
+    fontsLoaded: false,
+  };
+
+  async loadFonts() {
+    await Font.loadAsync({
+      "Lato-Light": { uri: require("./assets/fonts/Lato-Light.ttf") },
+      "Lato-Thin": { uri: require("./assets/fonts/Lato-Thin.ttf") },
+      "Lato-Regular": { uri: require("./assets/fonts/Lato-Regular.ttf") },
+      "Lato-Bold": { uri: require("./assets/fonts/Lato-Bold.ttf") },
+    });
+    this.setState({ fontsLoaded: true });
+  }
+
+  componentDidMount() {
+    this.loadFonts();
+  }
+  render() {
+    if (this.state.fontsLoaded) {
+      return (
+        <PaperProvider theme={theme}>
+          <SafeAreaView style={styles.unsafeAreaStyle} />
+          <SafeAreaView style={styles.appContainer}>
+            <HomeScreen />
+          </SafeAreaView>
+        </PaperProvider>
+      );
+    } else {
+      return null;
+    }
+  }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
+  unsafeAreaStyle: { flex: 0, backgroundColor: "#0073cf" },
 });
