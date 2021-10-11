@@ -15,7 +15,7 @@ export const CombinedDefaultTheme = {
   colors: {
     ...PaperDefaultTheme.colors,
     ...NavigationDefaultTheme.colors,
-    primary: "#0073cf",
+    primary: "#EF0531",
     accent: "#f4c430",
   },
 };
@@ -27,12 +27,12 @@ export const CombinedDarkTheme = {
   colors: {
     ...PaperDarkTheme.colors,
     ...NavigationDarkTheme.colors,
-    primary: "#0073cf",
+    primary: "#EF0531",
     accent: "#f4c430",
   },
 };
 
-export const PreferencesContext = React.createContext({
-  toggleTheme: () => {},
-  isThemeDark: false,
-});
+export const AppColors = {
+  primary: "#EF0531",
+  accent: "#f4c430",
+};
